@@ -27,3 +27,7 @@ This repository is intended as a **reproducible manipulation demo** for my robot
 - MoveIt 2 + RViz2
 - (If simulation is used) Gazebo / ros2_control stack
 
+## Demo GIFs
+![Demo1](media/sin_all.gif)
+![Demo2](media/sin_all_rqt.gif)
+![Demo2](media/ur5_test.gif)
