@@ -1,0 +1,151 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    joint1_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint2_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint3_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint4_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint5_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint6_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    # gripper_right_position_controller:
+    #   type: joint_trajectory_controller/JointTrajectoryController
+
+    # gripper_left_position_controller:
+    #   type: joint_trajectory_controller/JointTrajectoryController
+
+    # --- 변경점: 아래 gripper_right/left 컨트롤러를 하나의 컨트롤러로 통합 ---
+    gripper_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+joint_state_broadcaster:
+  ros__parameters: {}
+
+joint1_position_controller:
+  ros__parameters:
+    joints:
+      - base_link__link1
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      base_link__link1: {p: 700.0, i: 50.0, d: 70.0, i_clamp: 100.0}
+
+joint2_position_controller:
+  ros__parameters:
+    joints:
+      - link1__link2
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      link1__link2: {p: 700.0, i: 50.0, d: 70.0, i_clamp: 100.0}
+
+
+joint3_position_controller:
+  ros__parameters:
+    joints:
+      - link2__link3
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      link2__link3: {p: 1700.0, i: 50.0, d: 70.0, i_clamp: 100.0}
+
+joint4_position_controller:
+  ros__parameters:
+    joints:
+      - link3__link4
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      link3__link4: {p: 2000.0, i: 50.0, d: 100.0, i_clamp: 100.0}
+
+joint5_position_controller:
+  ros__parameters:
+    joints:
+      - link4__link5
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      link4__link5: {p: 700.0, i: 50.0, d: 70.0, i_clamp: 100.0}
+
+joint6_position_controller:
+  ros__parameters:
+    joints:
+      - link5__tcp_connector
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      link5__tcp_connector: {p: 700.0, i: 50.0, d: 70.0, i_clamp: 100.0}
+
+# gripper_right_position_controller:
+#   ros__parameters:
+#     joints:
+#       - tcp_connector__gripper_right
+#     command_interfaces:
+#       - position
+#     state_interfaces:
+#       - position
+#       - velocity
+#     gains:
+#       tcp_connector__gripper_right: {p: 300.0, i: 10.0, d: 10.0, i_clamp: 10.0}
+
+# gripper_left_position_controller:
+#   ros__parameters:
+#     joints:
+#       - tcp_connector__gripper_left
+#     command_interfaces:
+#       - position
+#     state_interfaces:
+#       - position
+#       - velocity
+#     gains:
+#       tcp_connector__gripper_left: {p: 300.0, i: 10.0, d: 10.0, i_clamp: 10.0}
+
+# <!-- 08/31 마지막으로 수정한 부분 -->  - 정상 작동
+# --- 변경점: 아래에 새로운 그리퍼 컨트롤러 설정을 추가합니다 ---
+gripper_trajectory_controller:
+  ros__parameters:
+    joints:
+      - tcp_connector__gripper_right
+      - tcp_connector__gripper_left
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains: # 두 조인트 모두에 대한 게인 값을 설정해줍니다.
+      tcp_connector__gripper_right: {p: 50.0, i: 5.0, d: 10.0, i_clamp: 10.0}
+      tcp_connector__gripper_left: {p: 50.0, i: 5.0, d: 10.0, i_clamp: 10.0}
